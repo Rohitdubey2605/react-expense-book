@@ -38,11 +38,15 @@ function App() {
   //   React.createElement("h2", {}, "Let's get started"),
   //   React.createElement(Expenses,{expenses: expenses})
   // ); 
+
+  const addExpenseHandler = (expense)=>{
+        expenses.push(expense);
+        console.log(expenses);
+  };
   
   return (
     <div>
-      <h2>Let's get started!</h2>
-      <NewExpense></NewExpense>
+      <NewExpense onAddExpense = {addExpenseHandler}></NewExpense>
       <Expenses expenses={expenses}></Expenses>
     </div>
   );
