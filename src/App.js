@@ -1,34 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
+import Chart from "./components/Chart/Chart";
+
+const initialExpenses = [
+  {
+    id: "id1",
+    title: "Earphone",
+    amount: 1392,
+    date: new Date(2022, 1, 14),
+  },
+  {
+    id: "id2",
+    title: "Wire",
+    amount: 320,
+    date: new Date(2022, 0, 17),
+  },
+  {
+    id: "id3",
+    title: "Laptop",
+    amount: 592,
+    date: new Date(2022, 2, 24),
+  },
+  {
+    id: "id4",
+    title: "Pen",
+    amount: 200,
+    date: new Date(2022, 5, 31),
+  },
+];
 
 function App() {
-  const expenses = [
-    {
-      id: "id1",
-      title: "Earphone",
-      amount: 1392,
-      date: new Date(2022, 1, 14),
-    },
-    {
-      id: "id2",
-      title: "Wire",
-      amount: 32,
-      date: new Date(2022, 1, 17),
-    },
-    {
-      id: "id3",
-      title: "Laptop",
-      amount: 57392,
-      date: new Date(2022, 1, 24),
-    },
-    {
-      id: "id4",
-      title: "Pen",
-      amount: 20,
-      date: new Date(2022, 1, 31),
-    },
-  ];
+  const [newExpenses, setNewExpenses] = useState(initialExpenses);
 
   // Old Way
   // alternative of JSX using React Object
@@ -37,17 +40,21 @@ function App() {
   //   {},
   //   React.createElement("h2", {}, "Let's get started"),
   //   React.createElement(Expenses,{expenses: expenses})
-  // ); 
+  // );
 
-  const addExpenseHandler = (expense)=>{
-        expenses.push(expense);
-        console.log(expenses);
+  const addExpenseHandler = (expense) => {
+    //initialExpenses.push(expense);
+    console.log(initialExpenses);
+    setNewExpenses((prevExpenses)=>{
+      return [expense,...prevExpenses];
+    });
   };
-  
+
   return (
     <div>
-      <NewExpense onAddExpense = {addExpenseHandler}></NewExpense>
-      <Expenses expenses={expenses}></Expenses>
+      <NewExpense onAddExpense={addExpenseHandler}></NewExpense>
+      {/* <Chart></Chart> */}
+      <Expenses expenses={newExpenses}></Expenses>
     </div>
   );
 }
